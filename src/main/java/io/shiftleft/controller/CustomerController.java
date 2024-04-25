@@ -1,5 +1,6 @@
 package io.shiftleft.controller;
 
+import io.github.pixee.security.Newlines;
 import io.shiftleft.model.Account;
 import io.shiftleft.model.Address;
 import java.io.BufferedReader;
@@ -202,7 +203,7 @@ public class CustomerController {
             // encode the file settings, md5sum is removed
             String s = new String(Base64.getEncoder().encode(filecontent.replace(md5sum, "").getBytes()));
             // setting the new cookie
-            httpResponse.setHeader("Cookie", "settings=" + s + "," + md5sum);
+            httpResponse.setHeader("Cookie", Newlines.stripAll("settings=" + s + "," + md5sum));
             return;
           }
         }
@@ -300,8 +301,8 @@ public class CustomerController {
 
     customerRepository.save(customer1);
     httpResponse.setStatus(HttpStatus.CREATED.value());
-    httpResponse.setHeader("Location", String.format("%s/customers/%s",
-                           request.getContextPath(), customer1.getId()));
+    httpResponse.setHeader("Location", Newlines.stripAll(String.format("%s/customers/%s",
+                           request.getContextPath(), customer1.getId())));
 
     return customer1.toString().toLowerCase().replace("script","");
   }
@@ -347,7 +348,7 @@ public class CustomerController {
 		createdcustomer = customerRepository.save(customer);
 		httpResponse.setStatus(HttpStatus.CREATED.value());
 		httpResponse.setHeader("Location",
-				String.format("%s/customers/%s", request.getContextPath(), customer.getId()));
+				Newlines.stripAll(String.format("%s/customers/%s", request.getContextPath(), customer.getId())));
 
 		return createdcustomer;
 	}
