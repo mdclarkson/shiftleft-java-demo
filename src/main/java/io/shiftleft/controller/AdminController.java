@@ -87,7 +87,7 @@ public class AdminController {
 
     try {
       // no cookie no fun
-      if (!auth.equals("notset")) {
+      if (!"notset".equals(auth)) {
         if(isAdmin(auth)) {
           request.getSession().setAttribute("auth",auth);
           return succ;
@@ -100,7 +100,7 @@ public class AdminController {
         return fail;
       }
       // compare pass
-      if(pass[1] != null && pass[1].length()>0 && pass[1].equals("shiftleftsecret"))
+      if(pass[1] != null && pass[1].length()>0 && "shiftleftsecret".equals(pass[1]))
       {
         AuthToken authToken = new AuthToken(AuthToken.ADMIN);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
