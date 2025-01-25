@@ -1,5 +1,6 @@
 package io.shiftleft.data;
 
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +33,7 @@ public class DataBuilder {
       // create a temp file
       File temp = File.createTempFile("tempfile", ".tmp");
       // write it
-      BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
+      BufferedWriter bw = Files.newBufferedWriter(temp.toPath());
       bw.write("This is the temporary file content");
       bw.close();
       System.out.println(" File Write Successful ");
