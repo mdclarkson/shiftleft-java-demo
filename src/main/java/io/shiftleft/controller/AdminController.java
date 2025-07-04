@@ -1,5 +1,6 @@
 package io.shiftleft.controller;
 
+import io.github.pixee.security.ObjectInputFilters;
 import io.shiftleft.model.AuthToken;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -33,6 +34,7 @@ public class AdminController {
     try {
       ByteArrayInputStream bis = new ByteArrayInputStream(Base64.getDecoder().decode(auth));
       ObjectInputStream objectInputStream = new ObjectInputStream(bis);
+      ObjectInputFilters.enableObjectFilterIfUnprotected(objectInputStream);
       Object authToken = objectInputStream.readObject();
       return ((AuthToken) authToken).isAdmin();
     } catch (Exception ex) {
